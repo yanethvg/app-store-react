@@ -2,12 +2,14 @@ import {
   START_SIGNIN,
   COMPLETE_SIGNIN,
   ERROR_SIGNIN,
-  AUTHENTICATESTORAGE,
+  START_SIGNOUT,
+  COMPLETE_SIGNOUT,
+  ERROR_SIGNOUT,
 } from "../types";
 
 const initialState = {
   error: null,
-  redirectToRefer: false,
+  redirectToRefer: null,
   auth: {},
 };
 
@@ -17,7 +19,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: null,
-        redirectToRefer: true,
+        redirectToRefer: false,
       };
     case COMPLETE_SIGNIN:
       return {
@@ -29,16 +31,25 @@ export default function (state = initialState, action) {
     case ERROR_SIGNIN:
       return {
         ...state,
-        error: true,
+        error: action.payload,
         redirectToRefer: false,
-        auth: {},
+        auth: undefined,
       };
-    case AUTHENTICATESTORAGE:
+    case START_SIGNOUT:
       return {
         ...state,
-        auth: action.payload,
-        error: false,
-        redirectToRefer: true,
+        error: null,
+      };
+    case COMPLETE_SIGNOUT:
+      return {
+        ...state,
+        error: null,
+        auth: undefined,
+      };
+    case ERROR_SIGNOUT:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

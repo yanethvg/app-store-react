@@ -12,12 +12,12 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 // material ui lab
-import Alert from "@material-ui/lab/Alert";
+import { Alert, AlertTitle } from "@material-ui/lab";
 // react router
 import { Link as RouterLink, Redirect } from "react-router-dom";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getSignin } from "../../actions/authAction";
+import { getSignin } from "../../actions/signinAction";
 
 function Copyright() {
   return (
@@ -144,7 +144,8 @@ export default function Signin() {
     <>
       {error ? (
         <Alert variant="filled" severity="error">
-          Sign In Failed
+          <AlertTitle>Error</AlertTitle>
+          {error}
         </Alert>
       ) : null}
       {signinForm(classes, saveEmail, savePassword, clickSubmit)}

@@ -7,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+//Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getSignout } from "../../actions/signoutAction";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -19,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Menu({ history }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const auth = useSelector((state) => state.auth.auth);
+  const signout = () => dispatch(getSignout());
 
   return (
     <AppBar position="sticky">
@@ -37,12 +44,24 @@ function Menu({ history }) {
         <Button color="inherit" component={RouterLink} to="/">
           Home
         </Button>
-        <Button color="inherit" component={RouterLink} to="/signin">
-          Sign In
-        </Button>
-        <Button color="inherit" component={RouterLink} to="/signup">
-          Sign up
-        </Button>
+        {!auth && (
+          <>
+            <Button color="inherit" component={RouterLink} to="/signin">
+              Sign In
+            </Button>
+            <Button color="inherit" component={RouterLink} to="/signup">
+              Sign up
+            </Button>
+          </>
+        )}
+        {auth && (
+          <Button
+            color="inherit"
+            onClick={() => signout(() => history.push("/"))}
+          >
+            Sign out
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

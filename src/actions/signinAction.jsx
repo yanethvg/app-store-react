@@ -1,9 +1,4 @@
-import {
-  START_SIGNIN,
-  COMPLETE_SIGNIN,
-  ERROR_SIGNIN,
-  AUTHENTICATESTORAGE,
-} from "../types";
+import { START_SIGNIN, COMPLETE_SIGNIN, ERROR_SIGNIN } from "../types";
 
 export function getSignin(user) {
   return (dispatch) => {
@@ -21,17 +16,14 @@ export function getSignin(user) {
         return response.json();
       })
       .then(function (response) {
-        console.log(response);
         if (response.err) {
-          dispatch(errorSignin());
+          dispatch(errorSignin(response.err));
         } else {
-          //dispatch(completeSignin(response));
-          dispatch(authenticateStorage(response));
+          dispatch(completeSignin(response));
         }
       })
       .catch((error) => {
-        console.log(error);
-        dispatch(errorSignin());
+        dispatch(errorSignin(error));
       });
   };
 }
@@ -45,11 +37,7 @@ export const completeSignin = (auth) => ({
   payload: auth,
 });
 
-export const errorSignin = () => ({
+export const errorSignin = (error) => ({
   type: ERROR_SIGNIN,
-});
-
-export const authenticateStorage = (auth) => ({
-  type: AUTHENTICATESTORAGE,
-  payload: auth,
+  payload: error,
 });
