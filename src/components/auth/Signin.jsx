@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+// material ui
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -12,7 +11,13 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Link as RouterLink } from "react-router-dom";
+// material ui lab
+import Alert from "@material-ui/lab/Alert";
+// react router
+import { Link as RouterLink, Redirect } from "react-router-dom";
+//Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getSignin } from "../../actions/authAction";
 
 function Copyright() {
   return (
@@ -44,9 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signin() {
-  const classes = useStyles();
-
+const signinForm = (classes, saveEmail, savePassword, clickSubmit) => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -68,6 +71,7 @@ export default function Signin() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => saveEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -79,17 +83,16 @@ export default function Signin() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => savePassword(e.target.value)}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={clickSubmit}
           >
             Sign In
           </Button>
@@ -111,5 +114,40 @@ export default function Signin() {
         <Copyright />
       </Box>
     </Container>
+  );
+};
+
+export default function Signin() {
+  const [email, saveEmail] = useState("");
+  const [password, savePassword] = useState("");
+  const dispatch = useDispatch();
+
+  const redirectToRefer = useSelector((state) => state.auth.redirectToRefer);
+  const error = useSelector((state) => state.auth.error);
+  const signin = (user) => dispatch(getSignin(user));
+
+  const clickSubmit = (e) => {
+    e.preventDefault();
+    const user = {
+      email,
+      password,
+    };
+    signin(user);
+  };
+
+  // material ui
+  const classes = useStyles();
+  if (redirectToRefer) {
+    return <Redirect to="/"></Redirect>;
+  }
+  return (
+    <>
+      {error ? (
+        <Alert variant="filled" severity="error">
+          Sign In Failed
+        </Alert>
+      ) : null}
+      {signinForm(classes, saveEmail, savePassword, clickSubmit)}
+    </>
   );
 }

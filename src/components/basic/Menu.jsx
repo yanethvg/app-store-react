@@ -21,7 +21,7 @@ function Menu({ history }) {
   const classes = useStyles();
 
   return (
-    <AppBar position="sticky" style={{ background: "#000000" }}>
+    <AppBar position="sticky">
       <Toolbar>
         <IconButton
           edge="start"
