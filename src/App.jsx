@@ -1,15 +1,12 @@
 import React from "react";
-import AddTodo from "./containers/AddTodo";
-import VisibleTodoList from "./containers/VisibleTodoList";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router } from "react-router-dom";
+import MainRouter from "./MainRouter";
 
 function App() {
   return (
-    <div className="App">
-      <AddTodo></AddTodo>
-      <VisibleTodoList></VisibleTodoList>
-      <Footer></Footer>
-    </div>
+    <Router>
+      <MainRouter></MainRouter>
+    </Router>
   );
 }
 

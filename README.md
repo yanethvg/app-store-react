@@ -18,7 +18,11 @@ In the project directory, you can run:
 
 4. [Redux-Thunk](https://www.npmjs.com/package/redux-thunk)
 
-5 [Axios](https://www.npmjs.com/package/axios)
+5. [Axios](https://www.npmjs.com/package/axios)
+
+6. [React-Router-Dom](https://www.npmjs.com/package/react-router-dom)
+
+7. [History](https://www.npmjs.com/package/history)
 
 ## CSS
 
