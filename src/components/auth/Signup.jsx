@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,6 +11,12 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+
+// material ui lab
+import { Alert, AlertTitle } from "@material-ui/lab";
+//Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getSignup } from "../../actions/signupAction";
 
 function Copyright() {
   return (
@@ -42,9 +48,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signup() {
-  const classes = useStyles();
-
+const signupForm = (
+  classes,
+  saveFirstName,
+  saveLastName,
+  saveEmail,
+  savePassword,
+  clickSubmit
+) => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -67,6 +78,7 @@ export default function Signup() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={(e) => saveFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -78,6 +90,7 @@ export default function Signup() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={(e) => saveLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -89,6 +102,7 @@ export default function Signup() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => saveEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -101,6 +115,7 @@ export default function Signup() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => savePassword(e.target.value)}
               />
             </Grid>
           </Grid>
@@ -110,6 +125,7 @@ export default function Signup() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={clickSubmit}
           >
             Sign Up
           </Button>
@@ -126,5 +142,51 @@ export default function Signup() {
         <Copyright />
       </Box>
     </Container>
+  );
+};
+
+export default function Signup() {
+  const [firstname, saveFirstName] = useState("");
+  const [lastname, saveLastName] = useState("");
+  const [email, saveEmail] = useState("");
+  const [password, savePassword] = useState("");
+  const dispatch = useDispatch();
+
+  const error = useSelector((state) => state.signup.error);
+  const message = useSelector((state) => state.signup.message);
+
+  const signup = (user) => dispatch(getSignup(user));
+
+  const classes = useStyles();
+
+  const clickSubmit = (e) => {
+    e.preventDefault();
+    const name = `${firstname} ${lastname}`;
+    const user = {
+      name,
+      email,
+      password,
+    };
+
+    signup(user);
+  };
+
+  return (
+    <>
+      {message ? (
+        <Alert severity={error ? "error" : "info"}>
+          <AlertTitle>{error ? "Error" : "Info"}</AlertTitle>
+          {message} <RouterLink to="/signin">Signin</RouterLink>
+        </Alert>
+      ) : null}
+      {signupForm(
+        classes,
+        saveFirstName,
+        saveLastName,
+        saveEmail,
+        savePassword,
+        clickSubmit
+      )}
+    </>
   );
 }

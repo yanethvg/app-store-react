@@ -10,7 +10,7 @@ import {
 const initialState = {
   error: null,
   redirectToRefer: null,
-  auth: {},
+  auth: undefined,
 };
 
 export default function (state = initialState, action) {
@@ -25,7 +25,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         auth: action.payload,
-        error: false,
+        error: null,
         redirectToRefer: true,
       };
     case ERROR_SIGNIN:
@@ -39,17 +39,20 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: null,
+        redirectToRefer: false,
       };
     case COMPLETE_SIGNOUT:
       return {
         ...state,
         error: null,
         auth: undefined,
+        redirectToRefer: false,
       };
     case ERROR_SIGNOUT:
       return {
         ...state,
         error: null,
+        redirectToRefer: false,
       };
     default:
       return state;
