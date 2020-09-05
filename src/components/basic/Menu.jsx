@@ -55,12 +55,21 @@ function Menu({ history }) {
           </>
         )}
         {auth && (
-          <Button
-            color="inherit"
-            onClick={() => signout(() => history.push("/"))}
-          >
-            Sign out
-          </Button>
+          <>
+            <Button
+              color="inherit"
+              component={RouterLink}
+              to="/create/categories"
+            >
+              Create Category
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => signout(() => history.push("/"))}
+            >
+              Sign out
+            </Button>
+          </>
         )}
       </Toolbar>
     </AppBar>

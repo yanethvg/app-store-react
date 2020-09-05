@@ -1,6 +1,5 @@
 export const authenticate = (auth) => {
   if (typeof window !== "undefined") {
-    console.log(auth);
     const jwtState = JSON.stringify(auth);
     localStorage.setItem("auth", jwtState);
   }
