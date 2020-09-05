@@ -50,9 +50,13 @@ const useStyles = makeStyles((theme) => ({
 
 const signupForm = (
   classes,
+  firstname,
   saveFirstName,
+  lastname,
   saveLastName,
+  email,
   saveEmail,
+  password,
   savePassword,
   clickSubmit
 ) => {
@@ -66,7 +70,7 @@ const signupForm = (
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={clickSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -77,6 +81,7 @@ const signupForm = (
                 fullWidth
                 id="firstName"
                 label="First Name"
+                value={firstname}
                 autoFocus
                 onChange={(e) => saveFirstName(e.target.value)}
               />
@@ -90,6 +95,7 @@ const signupForm = (
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={lastname}
                 onChange={(e) => saveLastName(e.target.value)}
               />
             </Grid>
@@ -102,6 +108,7 @@ const signupForm = (
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
                 onChange={(e) => saveEmail(e.target.value)}
               />
             </Grid>
@@ -115,6 +122,7 @@ const signupForm = (
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
                 onChange={(e) => savePassword(e.target.value)}
               />
             </Grid>
@@ -125,7 +133,6 @@ const signupForm = (
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={clickSubmit}
           >
             Sign Up
           </Button>
@@ -169,6 +176,13 @@ export default function Signup() {
     };
 
     signup(user);
+
+    if (!error) {
+      saveFirstName("");
+      saveLastName("");
+      saveEmail("");
+      savePassword("");
+    }
   };
 
   return (
@@ -181,9 +195,13 @@ export default function Signup() {
       ) : null}
       {signupForm(
         classes,
+        firstname,
         saveFirstName,
+        lastname,
         saveLastName,
+        email,
         saveEmail,
+        password,
         savePassword,
         clickSubmit
       )}
