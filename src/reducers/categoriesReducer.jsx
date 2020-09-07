@@ -28,7 +28,8 @@ export default function (state = initialState, action) {
         ...state,
         error: false,
         message: 'Category created successfully',
-        categories: [...state.categories, action.payload]
+        categories: [...state.categories, action.payload],
+        category: action.payload
       }
     case ERROR_CREATE_CATEGORY:
       return {

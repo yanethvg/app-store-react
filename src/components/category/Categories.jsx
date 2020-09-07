@@ -1,36 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 //Redux
-import { useDispatch, useSelector } from "react-redux";
-import { getCategoriesAction } from "../../actions/getCategoriesAction";
-import PaginationActionsTable from "../utils/PaginationActionsTable";
-import { Container } from "@material-ui/core";
+import { useDispatch, useSelector } from 'react-redux'
+import { getCategoriesAction } from '../../actions/getCategoriesAction'
+import PaginationActionsTable from '../utils/PaginationActionsTable'
+import { Container } from '@material-ui/core'
 
 const Categories = () => {
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.auth.token);
+  const dispatch = useDispatch()
+  const token = useSelector(state => state.auth.auth.token)
   useEffect(() => {
-    const loadCategories = () => dispatch(getCategoriesAction(token));
-    loadCategories();
-  }, [dispatch, token]);
+    const loadCategories = () => dispatch(getCategoriesAction(token))
+    loadCategories()
+  }, [dispatch, token])
   /*const loading = useSelector(state => state.categories.loading)
   const error = useSelector(state => state.categories.error)*/
-  const categories = useSelector((state) => state.categories.categories);
+  const categories = useSelector(state => state.categories.categories)
 
   const columns = [
-    { id: "id", label: "Id", minWidth: 170 },
-    { id: "name", label: "Name", minWidth: 230 },
-  ];
+    { id: 'id', label: 'Id', minWidth: 170 },
+    { id: 'name', label: 'Name', minWidth: 230 }
+  ]
 
+  const rows = categories.sort((a, b) => b.id - a.id)
   return (
     <div>
-      <Container component="main" maxWidth="md">
+      <Container component='main' maxWidth='md'>
         <PaginationActionsTable
-          rows={categories}
+          rows={rows}
           columns={columns}
         ></PaginationActionsTable>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Categories;
+export default Categories

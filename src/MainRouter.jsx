@@ -8,7 +8,7 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 import Signin from "./components/auth/Signin";
 import Signup from "./components/auth/Signup";
 import Footer from "./components/basic/Footer";
-import CategoryContainer from "./containers/CategoryContainer";
+import CategoryContainer from "./containers/Categories";
 
 const useStyles = makeStyles((theme) => ({
   root: {
