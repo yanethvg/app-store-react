@@ -8,6 +8,7 @@ import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import Footer from './components/basic/Footer'
 import Category from './components/category/Category'
+import Categories from './components/category/Categories'
 
 function MainRouter () {
   return (
@@ -24,6 +25,11 @@ function MainRouter () {
                 path='/create/categories'
                 exact
                 component={Category}
+              ></PrivateRoute>
+              <PrivateRoute
+                path='/get/categories'
+                exact
+                component={Categories}
               ></PrivateRoute>
             </Box>
             <Footer></Footer>

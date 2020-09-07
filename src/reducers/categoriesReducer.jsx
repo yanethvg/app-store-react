@@ -1,7 +1,10 @@
 import {
   START_CREATE_CATEGORY,
   COMPLETE_CREATE_CATEGORY,
-  ERROR_CREATE_CATEGORY
+  ERROR_CREATE_CATEGORY,
+  START_GET_CATEGORIES,
+  COMPLETE_GET_CATEGORIES,
+  ERROR_GET_CATEGORIES
 } from '../types'
 
 const initialState = {
@@ -32,6 +35,32 @@ export default function (state = initialState, action) {
         ...state,
         error: true,
         message: action.payload
+      }
+    case START_GET_CATEGORIES:
+      return {
+        ...state,
+        error: null,
+        loading: true,
+        message: null,
+        category: {}
+      }
+    case COMPLETE_GET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload,
+        error: false,
+        loading: false,
+        message: null,
+        category: {}
+      }
+    case ERROR_GET_CATEGORIES:
+      return {
+        ...state,
+        categories: [],
+        error: true,
+        loading: false,
+        message: 'Data upload error',
+        category: {}
       }
 
     default:
