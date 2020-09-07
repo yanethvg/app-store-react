@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  makeStyles,
   TableContainer,
   Table,
   TableBody,
@@ -13,27 +12,11 @@ import {
   Button,
 } from "@material-ui/core";
 import TablePaginationActions from "./TablePaginationActions";
-
-const useStyles2 = makeStyles({
-  table: {
-    minWidth: 500,
-  },
-  button: {
-    marginRight: "10px",
-  },
-  tableHead: {
-    background: "#000000",
-    color: "#FFFFFF",
-  },
-  tableFood: {
-    background: "#000000",
-    color: "#FFFFFF",
-  },
-});
+import { useStylesPaginationActions } from "../styles/utils/useStyles";
 
 export default function PaginationActionsTable(props) {
   const { columns, rows } = props;
-  const classes = useStyles2();
+  const classes = useStylesPaginationActions();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 

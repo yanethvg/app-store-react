@@ -1,24 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles, useTheme, IconButton } from "@material-ui/core";
+import { useTheme, IconButton } from "@material-ui/core";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-
-const useStyles1 = makeStyles((theme) => ({
-  root: {
-    flexShrink: 0,
-    marginLeft: theme.spacing(2.5),
-  },
-  icon: {
-    background: "#000000",
-    color: "#FFFFFF",
-  },
-}));
+import { useStylesTablePagination } from "../styles/utils/useStyles";
 
 function TablePaginationActions(props) {
-  const classes = useStyles1();
+  const classes = useStylesTablePagination();
   const theme = useTheme();
   const { count, page, rowsPerPage, onChangePage } = props;
 
