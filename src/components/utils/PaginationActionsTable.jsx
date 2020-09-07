@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   makeStyles,
   TableContainer,
@@ -10,48 +10,65 @@ import {
   TableFooter,
   TablePagination,
   TableHead,
-  Button
-} from '@material-ui/core'
-import TablePaginationActions from './TablePaginationActions'
+  Button,
+} from "@material-ui/core";
+import TablePaginationActions from "./TablePaginationActions";
 
 const useStyles2 = makeStyles({
   table: {
-    minWidth: 500
+    minWidth: 500,
   },
   button: {
-    marginRight: '10px'
-  }
-})
+    marginRight: "10px",
+  },
+  tableHead: {
+    background: "#000000",
+    color: "#FFFFFF",
+  },
+  tableFood: {
+    background: "#000000",
+    color: "#FFFFFF",
+  },
+});
 
-export default function PaginationActionsTable (props) {
-  const { columns, rows } = props
-  const classes = useStyles2()
-  const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+export default function PaginationActionsTable(props) {
+  const { columns, rows } = props;
+  const classes = useStyles2();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage)
-  }
+    setPage(newPage);
+  };
 
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10))
-    setPage(0)
-  }
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} stickyHeader aria-label='sticky table'>
+      <Table className={classes.table} stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
-            {columns.map(column => (
-              <TableCell key={column.id} align='center'>
+            {columns.map((column) => (
+              <TableCell
+                key={column.id}
+                align="center"
+                className={classes.tableHead}
+                style={{ width: 250 }}
+              >
                 {column.label}
               </TableCell>
             ))}
-            <TableCell key='actions2' align='center'>
+            <TableCell
+              key="actions2"
+              align="center"
+              className={classes.tableHead}
+            >
               Action
             </TableCell>
           </TableRow>
@@ -60,22 +77,27 @@ export default function PaginationActionsTable (props) {
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
-          ).map(row => (
+          ).map((row) => (
             <TableRow key={row.id}>
-              {columns.map(column => (
-                <TableCell component='th' scope='row' align='center'>
+              {columns.map((column) => (
+                <TableCell
+                  component="th"
+                  scope="row"
+                  align="center"
+                  key={column.id}
+                >
                   {row[column.id]}
                 </TableCell>
               ))}
-              <TableCell align='center'>
+              <TableCell align="center">
                 <Button
-                  variant='contained'
-                  color='primary'
+                  variant="contained"
+                  color="primary"
                   className={classes.button}
                 >
                   Update
                 </Button>
-                <Button variant='contained' color='secondary'>
+                <Button variant="contained" color="secondary">
                   Delete
                 </Button>
               </TableCell>
@@ -91,15 +113,17 @@ export default function PaginationActionsTable (props) {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, { label: 'All', value: -1 }]}
+              //rowsPerPageOptions={[5, 10, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[6]}
               colSpan={3}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-                native: true
+                inputProps: { "aria-label": "rows per page" },
+                native: true,
               }}
+              className={classes.tableFood}
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
@@ -108,5 +132,5 @@ export default function PaginationActionsTable (props) {
         </TableFooter>
       </Table>
     </TableContainer>
-  )
+  );
 }

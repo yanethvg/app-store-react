@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  appBar: {
+    background: "#000000",
+    color: "#FFFFFF",
+  },
 }));
 
 function Menu({ history }) {
@@ -28,7 +32,7 @@ function Menu({ history }) {
   const signout = () => dispatch(getSignout());
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" className={classes.appBar}>
       <Toolbar>
         <IconButton
           edge="start"
@@ -56,12 +60,8 @@ function Menu({ history }) {
         )}
         {auth && (
           <>
-            <Button
-              color="inherit"
-              component={RouterLink}
-              to="/create/categories"
-            >
-              Create Category
+            <Button color="inherit" component={RouterLink} to="/get/categories">
+              Categories
             </Button>
             <Button
               color="inherit"

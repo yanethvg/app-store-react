@@ -1,42 +1,41 @@
 import {
   START_GET_CATEGORIES,
   COMPLETE_GET_CATEGORIES,
-  ERROR_GET_CATEGORIES
-} from '../types'
+  ERROR_GET_CATEGORIES,
+} from "../types";
 
-export function getCategoriesAction (token) {
-  return dispatch => {
-    dispatch(startGetCategories())
+export function getCategoriesAction(token) {
+  return (dispatch) => {
+    dispatch(startGetCategories());
     // get auth api
     fetch(`${process.env.REACT_APP_API_URL}/api/categories`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then(function (response) {
-        return response.json()
+        return response.json();
       })
       .then(function (response) {
-        console.log(response)
-        dispatch(completeGetCategories(response.categories))
+        dispatch(completeGetCategories(response.categories));
       })
-      .catch(error => {
-        dispatch(errorGetCategories(error))
-      })
-  }
+      .catch((error) => {
+        dispatch(errorGetCategories(error));
+      });
+  };
 }
 
 export const startGetCategories = () => ({
-  type: START_GET_CATEGORIES
-})
+  type: START_GET_CATEGORIES,
+});
 
-export const completeGetCategories = categories => ({
+export const completeGetCategories = (categories) => ({
   type: COMPLETE_GET_CATEGORIES,
-  payload: categories
-})
+  payload: categories,
+});
 
-export const errorGetCategories = error => ({
+export const errorGetCategories = (error) => ({
   type: ERROR_GET_CATEGORIES,
-  payload: error
-})
+  payload: error,
+});

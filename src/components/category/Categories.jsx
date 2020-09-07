@@ -1,33 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 //Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { getCategoriesAction } from '../../actions/getCategoriesAction'
-import PaginationActionsTable from '../utils/PaginationActionsTable'
+import { useDispatch, useSelector } from "react-redux";
+import { getCategoriesAction } from "../../actions/getCategoriesAction";
+import PaginationActionsTable from "../utils/PaginationActionsTable";
+import { Container } from "@material-ui/core";
 
 const Categories = () => {
-  const dispatch = useDispatch()
-  const token = useSelector(state => state.auth.auth.token)
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.auth.token);
   useEffect(() => {
-    const loadCategories = () => dispatch(getCategoriesAction(token))
-    loadCategories()
-  }, [dispatch, token])
-  const loading = useSelector(state => state.categories.loading)
-  const error = useSelector(state => state.categories.error)
-  const categories = useSelector(state => state.categories.categories)
-  console.log(categories)
+    const loadCategories = () => dispatch(getCategoriesAction(token));
+    loadCategories();
+  }, [dispatch, token]);
+  /*const loading = useSelector(state => state.categories.loading)
+  const error = useSelector(state => state.categories.error)*/
+  const categories = useSelector((state) => state.categories.categories);
+
   const columns = [
-    { id: 'id', label: 'Id', minWidth: 170 },
-    { id: 'name', label: 'Name', minWidth: 170 }
-  ]
-  console.log(columns)
+    { id: "id", label: "Id", minWidth: 170 },
+    { id: "name", label: "Name", minWidth: 230 },
+  ];
+
   return (
     <div>
-      <PaginationActionsTable
-        rows={categories}
-        columns={columns}
-      ></PaginationActionsTable>
+      <Container component="main" maxWidth="md">
+        <PaginationActionsTable
+          rows={categories}
+          columns={columns}
+        ></PaginationActionsTable>
+      </Container>
     </div>
-  )
-}
+  );
+};
 
-export default Categories
+export default Categories;
