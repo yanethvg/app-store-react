@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCategoriesAction } from '../../actions/getCategoriesAction'
 import PaginationActionsTable from '../utils/PaginationActionsTable'
-import TableCategories from './TableCategories'
 
 const Categories = () => {
   const dispatch = useDispatch()
