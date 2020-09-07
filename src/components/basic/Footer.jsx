@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "40vh",
+    minHeight: "100vh",
   },
   main: {
     marginTop: theme.spacing(8),
@@ -42,12 +42,10 @@ export default function Footer() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Copyright />
-        </Container>
-      </footer>
-    </div>
+    <footer className={classes.footer}>
+      <Container maxWidth="sm">
+        <Copyright />
+      </Container>
+    </footer>
   );
 }
