@@ -15,7 +15,7 @@ import TablePaginationActions from "./TablePaginationActions";
 import { useStylesPaginationActions } from "../styles/utils/useStyles";
 
 export default function PaginationActionsTable(props) {
-  const { columns, rows } = props;
+  const { columns, rows, handleOpen, onSelected } = props;
   const classes = useStylesPaginationActions();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -30,6 +30,11 @@ export default function PaginationActionsTable(props) {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleSelectedRow = (item) => {
+    handleOpen();
+    onSelected(item);
   };
 
   return (
@@ -77,10 +82,12 @@ export default function PaginationActionsTable(props) {
                   variant="contained"
                   color="primary"
                   className={classes.button}
+                  item={row}
+                  onClick={() => handleSelectedRow(row)}
                 >
                   Update
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" id={row.id}>
                   Delete
                 </Button>
               </TableCell>

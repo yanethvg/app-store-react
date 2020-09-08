@@ -21,6 +21,7 @@ export function updateCategoryAction(id, token) {
         if (response.err) {
           dispatch(errorUpdateCategory(response.err.message));
         } else {
+          console.log(response.category);
           dispatch(completeUpdateCategory(response.category));
         }
       })

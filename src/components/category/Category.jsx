@@ -6,12 +6,15 @@ import { useStylesCategory } from "../styles/category/useStyles";
 import { Modal, Backdrop, Fade } from "@material-ui/core";
 import { categoryForm } from "../forms/Category";
 
-const Category = ({ open, handleClose }) => {
+const Category = ({ open, handleClose, categorySelected }) => {
+  /*const stateInitial = categorySelected ? categorySelected.name : "";
+  console.log(stateInitial);*/
   const [name, saveName] = useState("");
 
   const dispatch = useDispatch();
   const createCategory = (category, token) =>
     dispatch(createCategoryAction(category, token));
+
   const token = useSelector((state) => state.auth.auth.token);
   const error = useSelector((state) => state.categories.error);
   const message = useSelector((state) => state.categories.message);
@@ -46,12 +49,20 @@ const Category = ({ open, handleClose }) => {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-         timeout: 500,
+          timeout: 500,
         }}
       >
         <Fade in={open}>
           <div className={classes.paperModal}>
-            {categoryForm(classes, name, saveName, clickSubmit, error, message)}
+            {categoryForm(
+              classes,
+              name,
+              saveName,
+              clickSubmit,
+              error,
+              message,
+              categorySelected
+            )}
           </div>
         </Fade>
       </Modal>

@@ -15,7 +15,8 @@ export const categoryForm = (
   saveName,
   clickSubmit,
   error,
-  message
+  message,
+  categorySelected
 ) => (
   <Container component="main" maxWidth="xs">
     <CssBaseline></CssBaseline>
@@ -36,7 +37,7 @@ export const categoryForm = (
           id="name"
           label="Name"
           name="name"
-          value={name}
+          value={categorySelected ? categorySelected.name : name}
           helperText={error ? message : null}
           onChange={(e) => saveName(e.target.value)}
           autoComplete="name"

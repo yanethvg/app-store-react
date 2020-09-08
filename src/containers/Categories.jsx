@@ -11,6 +11,7 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 function CategoryContainer() {
   const classes = useStylesCategories();
   const [open, setOpen] = useState(false);
+  const [category, setCategory] = useState({});
   const message = useSelector((state) => state.categories.message);
   const error = useSelector((state) => state.categories.error);
 
@@ -20,7 +21,13 @@ function CategoryContainer() {
 
   const handleClose = () => {
     setOpen(false);
+    setCategory("");
   };
+
+  const handleSelectionCategory = (item) => {
+    setCategory(item);
+  };
+
   return (
     <>
       {error ? (
@@ -47,8 +54,15 @@ function CategoryContainer() {
           </Button>
         </Grid>
       </Grid>
-      <Category open={open} handleClose={handleClose}></Category>
-      <Categories />
+      <Category
+        open={open}
+        handleClose={handleClose}
+        categorySelected={category}
+      ></Category>
+      <Categories
+        handleOpen={handleOpen}
+        onSelectedCategory={handleSelectionCategory}
+      />
     </>
   );
 }
