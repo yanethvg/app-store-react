@@ -4,15 +4,18 @@ import {
   ERROR_UPDATE_CATEGORY,
 } from "../types";
 
-export function updateCategoryAction(id, token) {
+export function updateCategoryAction(id, category, token) {
   return (dispatch) => {
     dispatch(startUpdateCategory());
     // get auth api
     fetch(`${process.env.REACT_APP_API_URL}/api/categories/${id}`, {
-      method: "GET",
+      method: "PUT",
       headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(category),
     })
       .then(function (response) {
         return response.json();
@@ -21,7 +24,6 @@ export function updateCategoryAction(id, token) {
         if (response.err) {
           dispatch(errorUpdateCategory(response.err.message));
         } else {
-          console.log(response.category);
           dispatch(completeUpdateCategory(response.category));
         }
       })

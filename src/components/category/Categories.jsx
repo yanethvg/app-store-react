@@ -14,8 +14,7 @@ const Categories = ({ handleOpen, onSelectedCategory }) => {
     const loadCategories = () => dispatch(getCategoriesAction(token));
     loadCategories();
   }, [dispatch, token]);
-  /*const loading = useSelector(state => state.categories.loading)
-  const error = useSelector(state => state.categories.error)*/
+  /*const loading = useSelector(state => state.categories.loading)*/
   const categories = useSelector((state) => state.categories.categories);
 
   const columns = [

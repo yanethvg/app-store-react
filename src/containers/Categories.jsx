@@ -14,6 +14,8 @@ function CategoryContainer() {
   const [category, setCategory] = useState({});
   const message = useSelector((state) => state.categories.message);
   const error = useSelector((state) => state.categories.error);
+  console.log("error", error);
+  console.log("message", message);
 
   const handleOpen = () => {
     setOpen(true);

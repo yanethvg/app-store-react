@@ -37,7 +37,7 @@ export const categoryForm = (
           id="name"
           label="Name"
           name="name"
-          value={categorySelected ? categorySelected.name : name}
+          value={name}
           helperText={error ? message : null}
           onChange={(e) => saveName(e.target.value)}
           autoComplete="name"

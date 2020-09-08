@@ -32,7 +32,6 @@ export default function (state = initialState, action) {
         error: false,
         message: "Category created successfully",
         categories: [...state.categories, action.payload],
-        category: {},
       };
     case ERROR_CREATE_CATEGORY:
       return {
@@ -46,7 +45,6 @@ export default function (state = initialState, action) {
         error: null,
         loading: true,
         message: null,
-        category: {},
       };
     case COMPLETE_GET_CATEGORIES:
       return {
@@ -55,7 +53,6 @@ export default function (state = initialState, action) {
         error: false,
         loading: false,
         message: null,
-        category: {},
       };
     case ERROR_GET_CATEGORIES:
       return {
@@ -64,7 +61,6 @@ export default function (state = initialState, action) {
         error: true,
         loading: false,
         message: "Data upload error",
-        category: {},
       };
     case START_UPDATE_CATEGORY:
       return {
@@ -72,7 +68,6 @@ export default function (state = initialState, action) {
         error: null,
         message: null,
         loading: true,
-        category: {},
       };
     case COMPLETE_UPDATE_CATEGORY:
       return {
@@ -80,14 +75,17 @@ export default function (state = initialState, action) {
         error: false,
         loading: false,
         message: "Category updated successfully",
-        category: action.payload,
+        categories: state.categories.map((category) =>
+          category.id === action.payload.id
+            ? (category = action.payload)
+            : category
+        ),
       };
     case ERROR_UPDATE_CATEGORY:
       return {
         ...state,
         error: true,
         loading: false,
-        category: {},
       };
     default:
       return state;

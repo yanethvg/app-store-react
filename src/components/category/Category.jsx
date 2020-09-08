@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { createCategoryAction } from "../../actions/createCategoryAction";
 import { useStylesCategory } from "../styles/category/useStyles";
 import { Modal, Backdrop, Fade } from "@material-ui/core";
 import { categoryForm } from "../forms/Category";
+import { updateCategoryAction } from "../../actions/updateCategoryAction";
 
 const Category = ({ open, handleClose, categorySelected }) => {
   /*const stateInitial = categorySelected ? categorySelected.name : "";
@@ -14,21 +15,29 @@ const Category = ({ open, handleClose, categorySelected }) => {
   const dispatch = useDispatch();
   const createCategory = (category, token) =>
     dispatch(createCategoryAction(category, token));
+  const updateCategory = (id, category, token) =>
+    dispatch(updateCategoryAction(id, category, token));
 
   const token = useSelector((state) => state.auth.auth.token);
   const error = useSelector((state) => state.categories.error);
   const message = useSelector((state) => state.categories.message);
 
+  useEffect(() => {
+    categorySelected ? saveName(categorySelected.name) : saveName("");
+  }, [categorySelected, saveName]);
+
   const clickSubmit = (e) => {
     e.preventDefault();
     let category = {};
-    if (name.trim() !== "") {
+    console.log("name", name);
+    if (name && name.trim() !== "") {
       category = {
         name,
       };
     }
-
-    createCategory(category, token);
+    categorySelected
+      ? updateCategory(categorySelected.id, category, token)
+      : createCategory(category, token);
 
     if (!error) {
       saveName("");
