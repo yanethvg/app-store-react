@@ -5,6 +5,9 @@ import {
   START_GET_CATEGORIES,
   COMPLETE_GET_CATEGORIES,
   ERROR_GET_CATEGORIES,
+  START_UPDATE_CATEGORY,
+  COMPLETE_UPDATE_CATEGORY,
+  ERROR_UPDATE_CATEGORY,
 } from "../types";
 
 const initialState = {
@@ -63,7 +66,29 @@ export default function (state = initialState, action) {
         message: "Data upload error",
         category: {},
       };
-
+    case START_UPDATE_CATEGORY:
+      return {
+        ...state,
+        error: null,
+        message: null,
+        loading: true,
+        category: {},
+      };
+    case COMPLETE_UPDATE_CATEGORY:
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        message: "Category updated successfully",
+        category: action.payload,
+      };
+    case ERROR_UPDATE_CATEGORY:
+      return {
+        ...state,
+        error: true,
+        loading: false,
+        category: {},
+      };
     default:
       return state;
   }
