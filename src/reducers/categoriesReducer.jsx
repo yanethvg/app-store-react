@@ -4,16 +4,16 @@ import {
   ERROR_CREATE_CATEGORY,
   START_GET_CATEGORIES,
   COMPLETE_GET_CATEGORIES,
-  ERROR_GET_CATEGORIES
-} from '../types'
+  ERROR_GET_CATEGORIES,
+} from "../types";
 
 const initialState = {
   categories: [],
   error: null,
   loading: false,
   category: {},
-  message: null
-}
+  message: null,
+};
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -21,30 +21,30 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: null,
-        message: null
-      }
+        message: null,
+      };
     case COMPLETE_CREATE_CATEGORY:
       return {
         ...state,
         error: false,
-        message: 'Category created successfully',
+        message: "Category created successfully",
         categories: [...state.categories, action.payload],
-        category: action.payload
-      }
+        category: {},
+      };
     case ERROR_CREATE_CATEGORY:
       return {
         ...state,
         error: true,
-        message: action.payload
-      }
+        message: action.payload,
+      };
     case START_GET_CATEGORIES:
       return {
         ...state,
         error: null,
         loading: true,
         message: null,
-        category: {}
-      }
+        category: {},
+      };
     case COMPLETE_GET_CATEGORIES:
       return {
         ...state,
@@ -52,19 +52,19 @@ export default function (state = initialState, action) {
         error: false,
         loading: false,
         message: null,
-        category: {}
-      }
+        category: {},
+      };
     case ERROR_GET_CATEGORIES:
       return {
         ...state,
         categories: [],
         error: true,
         loading: false,
-        message: 'Data upload error',
-        category: {}
-      }
+        message: "Data upload error",
+        category: {},
+      };
 
     default:
-      return state
+      return state;
   }
 }
