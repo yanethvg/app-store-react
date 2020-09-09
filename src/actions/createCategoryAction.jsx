@@ -24,7 +24,7 @@ export function createCategoryAction(category, token) {
         if (response.err) {
           dispatch(errorCreateCategory(response.err.message));
         } else {
-          dispatch(completeCreateCategory(response.category));
+          dispatch(completeCreateCategory(response));
         }
       })
       .catch((error) => {
@@ -37,9 +37,9 @@ export const startCreateCategory = () => ({
   type: START_CREATE_CATEGORY,
 });
 
-export const completeCreateCategory = (category) => ({
+export const completeCreateCategory = (response) => ({
   type: COMPLETE_CREATE_CATEGORY,
-  payload: category,
+  payload: response,
 });
 
 export const errorCreateCategory = (message) => ({
